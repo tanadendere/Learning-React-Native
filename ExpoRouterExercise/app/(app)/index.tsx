@@ -124,4 +124,39 @@ export default function Page() {
  * Groups are also good for organizing sections of the app.
  *    example, we have app/(app) which is where the main app lives, and app/(aux) which is where auxiliary pages (t&c and/or privacy policy pages) live.
  *    This is useful for adding pages which you want to link to externally, but don't need to be part of the main app.
+ *
+ *
+ * ERROR HANDLING
+ * Handling unmatched routes and errors in your app when using Expo Router
+ *
+ * Native apps don't have a server so there are technically no 404s.
+ * However, if you're implementing a router universally, then it makes sense to handle missing routes.
+ * This is done automatically for each app, but you can also customize it.
+ *
+ * naming convection +errorhandlingfilename.tsx
+ *
+ * Expo Router enables fine-tuned error handling to enable a more opinionated data-loading strategy in the future.
+ * You can export a nested ErrorBoundary component from any route to intercept and format component-level errors using React Error Boundaries:
+ * (see ErrorBoundary component in app/home.tsx)
+ *
+ * When you export an ErrorBoundary the route will be wrapped with a React Error Boundary effectively:
+ *    function Route({ ErrorBoundary, Component }) {
+ *      return (
+ *        <Try catch={ErrorBoundary}>
+ *          <Component />
+ *        </Try>
+ *      );
+ *    }
+ *
+ * When ErrorBoundary is not present, the error will be thrown to the nearest parent's ErrorBoundary.
+ *
+ *
+ * ErrorBoundaryProps
+ * Each ErrorBoundary is passed the following props:
+ *    error: Error — The error that was thrown.
+ *    retry: () => Promise<void> — A function that will rerender the route component.
+ *
+ * ErrorBoundary
+ *  You can also use the default ErrorBoundary component for a quick UI:
+ *  export { ErrorBoundary } from 'expo-router'; in home.tsx
  * */
